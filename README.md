@@ -1,22 +1,21 @@
 # PyQt5 Color Picker
-Simple Color Picker with a modern UI created with PyQt5 to easily get color input from the user.
+Simple Color Picker Widget created with PyQt5 to easily get color input from the user.
 
 ![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
 
 
 ## Usage
 
-1. To use the Color Picker in a python project make sure you have the `PyQt5` library:
+1. To use the Color Picker Widget in a python project make sure you have the `PyQt5` library:
 
    ```
    pip install PyQt5
    ```
 
-   then add the `colorpicker` folder into your project folder and import `ColorPicker`, and `QApplication`
+   then add the `colorpicker` folder into your project folder and import `ColorPicker`
 
    ```python
    from colorpicker import ColorPicker
-   from PyQt5.QtWidgets import QApplication
    ```
 
 2. To ask for a color first create an `QApplication`:
