@@ -42,6 +42,8 @@ class ColorPicker(QWidget):
 
         self.color = (0,0,0)
 
+        self.setRGB((0,0,0))
+
 
     ## Main Function ##
     def getColor(self, mode="rgb"):
@@ -76,7 +78,7 @@ class ColorPicker(QWidget):
         r,g,b = self.hex2rgb(hex)
         self.color = self.hex2hsv(hex)
         self.setHSV(self.color)
-        self.setRGB(self.color)
+        self.setRGB(self.hex2hsv(hex))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.colorChanged.emit()
 
@@ -101,7 +103,7 @@ class ColorPicker(QWidget):
         if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color
         else: h = h_or_color
         r,g,b = colorsys.hsv_to_rgb(h / 100.0, s / 100.0, v / 100.0)
-        return (r * 255, g * 255, b * 255)
+        return self.clampRGB((r * 255, g * 255, b * 255))
 
     def rgb2hsv(self, r_or_color, g = 0, b = 0):
         if type(r_or_color).__name__ == "tuple": r,g,b = r_or_color
@@ -151,3 +153,13 @@ class ColorPicker(QWidget):
     def i(self, text):
         try: return int(text)
         except: return 0
+
+    def clampRGB(self, rgb):
+        r,g,b = rgb
+        if r<0.0001: r=0
+        if g<0.0001: g=0
+        if b<0.0001: b=0
+        if r>255: r=255
+        if g>255: g=255
+        if b>255: b=255
+        return (r,g,b)

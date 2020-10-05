@@ -1,4 +1,5 @@
 # PyQt5 Color Picker
+
 Simple Color Picker Widget created with PyQt5 to easily get color input from the user.
 
 ![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
@@ -18,29 +19,35 @@ Simple Color Picker Widget created with PyQt5 to easily get color input from the
    from colorpicker import ColorPicker
    ```
 
-2. To ask for a color first create an `QApplication`:
+2. To add the widget to your app, create a `360x200` placeholder widget in your ui and add the colorpicker to it:
 
    ```python
-   app = QApplication([])
+   colorpicker = ColorPicker(my_placeholder)
    ```
 
-   then simply create an instance of the class:
+   and then run the `getColor` method to get the currently selected color:
 
    ```python
-   my_color_picker = ColorPicker()
-   ```
-
-   and then run the `getColor` method:
-
-   ```python
-   picked_color = my_color_picker.getColor()
+   current_color = colorpicker.getColor()
    ```
 
 
-* `getColor` returns a tuple of RGB values ranging from 0 to 255, for example: `(255,0,127)`.\
-  If you want the Color Picker Window to have a certain color already selected, pass an RGB tuple to it:
+* `getColor` returns either an RGB tuple: `(255,255,255)` and HSV tuple: `(100,100,100)` or a hex string: `"ffffff"`.\
+  Change format by using the mode keyword with either "rgb", "hsv" or "hex"
 
    ```python
-   old_color = (255,255,255)
-   picked_color = my_color_picker.getColor(old_color)
+   hsv = colorpicker.getColor(mode="hsv")
+   rgb = colorpicker.getColor(mode="rgb")
+   hex = colorpicker.getColor(mode="hex")
    ```
+
+* Use ColorPicker's `colorChanged` signal to update directly when the user changes the color:
+
+  ```python
+  colorpicker.colorChanged.connect(my_function)
+
+  def my_function():
+    print(colorpicker.getColor())
+  ```
+
+* For an example with a bigger application based on a main class, look at the `example.py` file.

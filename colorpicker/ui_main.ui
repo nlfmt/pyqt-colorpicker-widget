@@ -207,7 +207,9 @@ border-radius: 5px;</string>
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QLabel{
+	border-radius: 5px;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -258,7 +260,7 @@ border-radius: 5px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: #222;
-border-radius: 5px;</string>
+</string>
       </property>
       <property name="text">
        <string/>

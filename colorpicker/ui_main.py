@@ -94,7 +94,9 @@ class Ui_ColorPicker(object):
         self.horizontalLayout_2.addWidget(self.color_view)
         self.frame = QtWidgets.QFrame(ColorPicker)
         self.frame.setMinimumSize(QtCore.QSize(30, 0))
-        self.frame.setStyleSheet("")
+        self.frame.setStyleSheet("QLabel{\n"
+"    border-radius: 5px;\n"
+"}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -110,7 +112,7 @@ class Ui_ColorPicker(object):
         self.hue_selector.setGeometry(QtCore.QRect(7, 185, 26, 15))
         self.hue_selector.setMinimumSize(QtCore.QSize(26, 0))
         self.hue_selector.setStyleSheet("background-color: #222;\n"
-"border-radius: 5px;")
+"")
         self.hue_selector.setText("")
         self.hue_selector.setObjectName("hue_selector")
         self.hue = QtWidgets.QFrame(self.frame)
