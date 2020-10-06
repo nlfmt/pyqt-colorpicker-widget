@@ -7,7 +7,7 @@ Simple Color Picker Widget created with PyQt5 to easily get color input from the
 
 ## Usage
 
-1. To use the Color Picker Widget in a python project make sure you have the `PyQt5` library:
+1. To use the Color Picker Widget in a PyQt5 project make sure you have the `PyQt5` library:
 
    ```
    pip install PyQt5

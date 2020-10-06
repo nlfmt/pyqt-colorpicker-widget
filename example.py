@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QSize
 
 from example_window import Ui_MainWindow
 from colorpicker import ColorPicker
@@ -29,9 +30,15 @@ class My_Window(QMainWindow):
         self.colorpicker.colorChanged.connect(self.onColorChange)
 
         print(self.colorpicker.hex2rgb("dd3322"))
+        #self.colorpicker.ui.editfields.close()
+        self.colorpicker.ui.color_view.close()
+        self.colorpicker.ui.hue_frame.close()
+        #self.ui.colorpicker_frame.resize(QSize(120,200))
+        self.ui.colorpicker_frame.setStyleSheet("background-color: red;")
 
 
     def selectColor(self):
+
         # get current color wit getColor() method
         r,g,b = self.colorpicker.getRGB()
         h,s,v = self.colorpicker.getHSV()

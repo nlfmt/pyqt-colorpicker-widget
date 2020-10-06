@@ -199,7 +199,7 @@ border-radius: 5px;</string>
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="hue_frame">
      <property name="minimumSize">
       <size>
        <width>30</width>
