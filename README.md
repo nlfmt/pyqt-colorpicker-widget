@@ -2,7 +2,7 @@
 
 Simple Color Picker Widget created with PyQt5 to easily get color input from the user.
 
-![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
+![colorpicker_widget](https://user-images.githubusercontent.com/71983360/95210784-233feb80-07ec-11eb-94fb-3fb1efc48ae3.png)
 
 
 ## Usage
