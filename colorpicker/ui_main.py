@@ -145,7 +145,7 @@ class Ui_ColorPicker(object):
         self.color_vis.setMinimumSize(QtCore.QSize(0, 50))
         self.color_vis.setMaximumSize(QtCore.QSize(16777215, 50))
         self.color_vis.setStyleSheet("/* ALL CHANGES HERE WILL BE OVERWRITTEN */;\n"
-"background-color: rgb(255, 255, 255);\n"
+"background-color: #000;\n"
 "")
         self.color_vis.setText("")
         self.color_vis.setObjectName("color_vis")

@@ -25,20 +25,23 @@ Simple Color Picker Widget created with PyQt5 to easily get color input from the
    colorpicker = ColorPicker(my_placeholder)
    ```
 
-   and then run the `getColor` method to get the currently selected color:
+   and then run `getRGB`/`getHSV`/`getHex` method to get the currently selected color:
 
    ```python
-   current_color = colorpicker.getColor()
+   current_color = colorpicker.getRGB()
    ```
 
 
-* `getColor` returns either an RGB tuple: `(255,255,255)` and HSV tuple: `(100,100,100)` or a hex string: `"ffffff"`.\
-  Change format by using the mode keyword with either "rgb", "hsv" or "hex"
+* `getRGB` returns a rgb tuple with values from 0-255,
+* `getHSV` returns a hsv tuple with values from 0-100,
+* `getHex` returns a string without hashtag.
+
+* You can customize the ranges easily:
 
    ```python
-   hsv = colorpicker.getColor(mode="hsv")
-   rgb = colorpicker.getColor(mode="rgb")
-   hex = colorpicker.getColor(mode="hex")
+   hsv = colorpicker.getHSV(360,1)  # hue in degrees, saturation & value from 0 to 1
+   rgb = colorpicker.getRGB(100)    # rgb in percent
+   hex = colorpicker.getHex(True)   # use hashtag in string
    ```
 
 * Use ColorPicker's `colorChanged` signal to update directly when the user changes the color:

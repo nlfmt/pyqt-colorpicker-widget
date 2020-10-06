@@ -43,15 +43,23 @@ class ColorPicker(QWidget):
         self.color = (0,0,0)
 
         self.setRGB((0,0,0))
+        self.setHex("000000")
+        self.setHSV((0,0,0))
 
 
-    ## Main Function ##
-    def getColor(self, mode="rgb"):
-        if mode == "rgb": color = self.hsv2rgb(self.color)
-        elif mode == "hsv": color = self.color
-        elif mode == "hex": color = self.hsv2hex(self.color)
-        else: raise ArgumentError ("Not a valid color mode. Modes are: 'rgb', 'hsv', 'hex'")
-        return color
+    ## Main Functions ##
+    def getHSV(self, hrange=100, svrange=100):
+        h,s,v = self.color
+        return (h*(hrange/100.0), s*(svrange/100.0), v*(svrange/100.0))
+
+    def getRGB(self, range=255):
+        r,g,b = self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text())
+        return (r*(range/255.0),g*(range/255.0),b*(range/255.0))
+
+    def getHex(self,ht=False):
+        rgb = (self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text()))
+        if ht: return "#" + self.rgb2hex(rgb)
+        else: return self.rgb2hex(rgb)
 
 
     ## Update Functions ##
@@ -59,8 +67,8 @@ class ColorPicker(QWidget):
         h,s,v = (100 - self.ui.hue_selector.y() / 1.85, (self.ui.selector.x() + 6) / 2.0, (194 - self.ui.selector.y()) / 2.0)
         r,g,b = self.hsv2rgb(h,s,v)
         self.color = (h,s,v)
-        self.setRGB(self.color)
-        self.setHex(self.color)
+        self.setRGB((r,g,b))
+        self.setHex(self.hsv2hex(self.color))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.ui.color_view.setStyleSheet(f"border-radius: 5px;background-color: qlineargradient(x1:1, x2:0, stop:0 hsl({h}%,100%,50%), stop:1 #fff);")
         self.colorChanged.emit()
@@ -69,7 +77,7 @@ class ColorPicker(QWidget):
         r,g,b = self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text())
         self.color = self.rgb2hsv(r,g,b)
         self.setHSV(self.color)
-        self.setHex(self.color)
+        self.setHex(self.rgb2hex((r,g,b)))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.colorChanged.emit()
 
@@ -78,13 +86,13 @@ class ColorPicker(QWidget):
         r,g,b = self.hex2rgb(hex)
         self.color = self.hex2hsv(hex)
         self.setHSV(self.color)
-        self.setRGB(self.hex2hsv(hex))
+        self.setRGB(self.hex2rgb(hex))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.colorChanged.emit()
 
-
+## internal setting functions ##
     def setRGB(self, c):
-        r,g,b = self.hsv2rgb(c)
+        r,g,b = c
         self.ui.red.setText(str(self.i(r)))
         self.ui.green.setText(str(self.i(g)))
         self.ui.blue.setText(str(self.i(b)))
@@ -95,7 +103,7 @@ class ColorPicker(QWidget):
         self.ui.selector.move(c[1] * 2 - 6, (200 - c[2] * 2) - 6)
 
     def setHex(self, c):
-        self.ui.hex.setText(self.hsv2hex(c))
+        self.ui.hex.setText(c)
 
 
     ## Color Utility ##

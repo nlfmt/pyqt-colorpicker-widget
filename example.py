@@ -33,15 +33,21 @@ class My_Window(QMainWindow):
 
     def selectColor(self):
         # get current color wit getColor() method
-        r,g,b = self.colorpicker.getColor()
-        h,s,v = self.colorpicker.getColor(mode="hsv")
-        print(h,s,v)
-        print(r,g,b)
+        r,g,b = self.colorpicker.getRGB()
+        h,s,v = self.colorpicker.getHSV()
+
+        hsv = self.colorpicker.getHSV(hrange=360, svrange=1)  # hue in degrees, saturation & value from 0 to 1
+        rgb = self.colorpicker.getRGB(100)              # rgb in percent
+        hex = self.colorpicker.getHex(True)                # use hashtag in string
+
+        print(hsv)
+        print(rgb)
+        print(hex)
         self.ui.selected_color_frame.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
 
     def onColorChange(self):
-        hex = "#" + self.colorpicker.getColor(mode="hex")
+        hex = self.colorpicker.getHex(1)
         self.ui.hex_label.setText(hex)
 
 
