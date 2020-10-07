@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QSize
 
 from example_window import Ui_MainWindow
 from colorpicker import ColorPicker
@@ -29,13 +28,6 @@ class My_Window(QMainWindow):
         # using ColorPicker's colorChanged signal:
         self.colorpicker.colorChanged.connect(self.onColorChange)
 
-        print(self.colorpicker.hex2rgb("dd3322"))
-        #self.colorpicker.ui.editfields.close()
-        self.colorpicker.ui.color_view.close()
-        self.colorpicker.ui.hue_frame.close()
-        #self.ui.colorpicker_frame.resize(QSize(120,200))
-        self.ui.colorpicker_frame.setStyleSheet("background-color: red;")
-
 
     def selectColor(self):
 
@@ -43,13 +35,10 @@ class My_Window(QMainWindow):
         r,g,b = self.colorpicker.getRGB()
         h,s,v = self.colorpicker.getHSV()
 
-        hsv = self.colorpicker.getHSV(hrange=360, svrange=1)  # hue in degrees, saturation & value from 0 to 1
-        rgb = self.colorpicker.getRGB(100)              # rgb in percent
-        hex = self.colorpicker.getHex(True)                # use hashtag in string
+        hsv = self.colorpicker.getHSV(360, 1)  # hue in degrees, saturation & value from 0 to 1
+        rgb = self.colorpicker.getRGB(100)     # rgb with white = (100,100,100)
+        hex = self.colorpicker.getHex(True)    # output with hashtag in string
 
-        print(hsv)
-        print(rgb)
-        print(hex)
         self.ui.selected_color_frame.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
 
