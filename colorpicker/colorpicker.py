@@ -1,7 +1,7 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
-# Version 1.2.1                         #
+# Version 1.3                           #
 # made with Qt Creator & PyQt5          #
 #                                       #
 # ------------------------------------- #
@@ -22,6 +22,12 @@ class ColorPicker(QWidget):
     colorChanged = pyqtSignal()
 
     def __init__(self, *args, **kwargs):
+
+        # Extract Initial Color out of kwargs
+        rgb = kwargs.pop("rgb", None)
+        hsv = kwargs.pop("hsv", None)
+        hex = kwargs.pop("hex", None)
+
         super(ColorPicker, self).__init__(*args, **kwargs)
 
         # Call UI Builder function
@@ -40,11 +46,14 @@ class ColorPicker(QWidget):
         self.ui.black_overlay.mouseMoveEvent = self.moveSVSelector
         self.ui.black_overlay.mousePressEvent = self.moveSVSelector
 
-        self.color = (0,0,0)
-
-        self.setRGB((0,0,0))
-        self.setHex("000000")
-        self.setHSV((0,0,0))
+        if rgb:
+            self.setRGB(rgb)
+        elif hsv:
+            self.setHSV(hsv)
+        elif hex:
+            self.setHex(hex)
+        else:
+            self.setRGB((0,0,0))
 
 
     ## Main Functions ##
@@ -67,8 +76,8 @@ class ColorPicker(QWidget):
         h,s,v = (100 - self.ui.hue_selector.y() / 1.85, (self.ui.selector.x() + 6) / 2.0, (194 - self.ui.selector.y()) / 2.0)
         r,g,b = self.hsv2rgb(h,s,v)
         self.color = (h,s,v)
-        self.setRGB((r,g,b))
-        self.setHex(self.hsv2hex(self.color))
+        self._setRGB((r,g,b))
+        self._setHex(self.hsv2hex(self.color))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.ui.color_view.setStyleSheet(f"border-radius: 5px;background-color: qlineargradient(x1:1, x2:0, stop:0 hsl({h}%,100%,50%), stop:1 #fff);")
         self.colorChanged.emit()
@@ -76,8 +85,8 @@ class ColorPicker(QWidget):
     def rgbChanged(self):
         r,g,b = self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text())
         self.color = self.rgb2hsv(r,g,b)
-        self.setHSV(self.color)
-        self.setHex(self.rgb2hex((r,g,b)))
+        self._setHSV(self.color)
+        self._setHex(self.rgb2hex((r,g,b)))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.colorChanged.emit()
 
@@ -85,25 +94,40 @@ class ColorPicker(QWidget):
         hex = self.ui.hex.text()
         r,g,b = self.hex2rgb(hex)
         self.color = self.hex2hsv(hex)
-        self.setHSV(self.color)
-        self.setRGB(self.hex2rgb(hex))
+        self._setHSV(self.color)
+        self._setRGB(self.hex2rgb(hex))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.colorChanged.emit()
 
-## internal setting functions ##
-    def setRGB(self, c):
+
+    ## internal setting functions ##
+    def _setRGB(self, c):
         r,g,b = c
         self.ui.red.setText(str(self.i(r)))
         self.ui.green.setText(str(self.i(g)))
         self.ui.blue.setText(str(self.i(b)))
 
-    def setHSV(self, c):
+    def _setHSV(self, c):
         self.ui.hue_selector.move(7, (100 - c[0]) * 1.85)
         self.ui.color_view.setStyleSheet(f"border-radius: 5px;background-color: qlineargradient(x1:1, x2:0, stop:0 hsl({c[0]}%,100%,50%), stop:1 #fff);")
         self.ui.selector.move(c[1] * 2 - 6, (200 - c[2] * 2) - 6)
 
-    def setHex(self, c):
+    def _setHex(self, c):
         self.ui.hex.setText(c)
+
+
+    ## external setting functions ##
+    def setRGB(self, c):
+        self._setRGB(c)
+        self.rgbChanged()
+
+    def setHSV(self, c):
+        self._setHSV(c)
+        self.hsvChanged()
+
+    def setHex(self, c):
+        self._setHex(c)
+        self.hexChanged()
 
 
     ## Color Utility ##
@@ -138,6 +162,7 @@ class ColorPicker(QWidget):
         if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color
         else: h = h_or_color
         return self.rgb2hex(self.hsv2rgb(h,s,v))
+
 
     # selector move function
     def moveSVSelector(self, event):

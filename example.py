@@ -17,7 +17,8 @@ class My_Window(QMainWindow):
         self.ui.setupUi(self)
 
         # Create the colorpicker widget inside the colorpicker_frame in your ui
-        self.colorpicker = ColorPicker(self.ui.colorpicker_frame)
+        # Use rgb, hsv and hex arguments to set initial color
+        self.colorpicker = ColorPicker(self.ui.colorpicker_frame, hsv=(50,50,50))
 
         # the colorpicker handle is a bit dark and blends in with the bg, let's change it:
         self.colorpicker.ui.hue_selector.setStyleSheet("background-color: #aaa")
@@ -43,7 +44,7 @@ class My_Window(QMainWindow):
 
 
     def onColorChange(self):
-        hex = self.colorpicker.getHex(1)
+        hex = self.colorpicker.getHex(True)
         self.ui.hex_label.setText(hex)
 
 

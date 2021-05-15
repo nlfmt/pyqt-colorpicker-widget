@@ -19,13 +19,18 @@ Simple Color Picker Widget created with PyQt5 to easily get color input from the
    from colorpicker import ColorPicker
    ```
 
-2. To add the widget to your app, create a `360x200` placeholder widget in your ui and add the colorpicker to it:
+2. To add the widget to your app, create a `360x200` placeholder widget in your ui and add the colorpicker to it.
+   When initializing the Color Picker you have the option to pass an initial color to it.
 
    ```python
-   colorpicker = ColorPicker(my_placeholder)
+   colorpicker = ColorPicker(my_placeholder) # initial color is black
+
+   colorpicker = ColorPicker(my_placeholder, rgb=(255,127,0))     # Use RGB
+   colorpicker = ColorPicker(my_placeholder, hsv=(90,80,20))   # Use HSV
+   colorpicker = ColorPicker(my_placeholder, hex="33ff88")        # Use Hex
    ```
 
-   and then run `getRGB`/`getHSV`/`getHex` method to get the currently selected color:
+   You can then run `getRGB`/`getHSV`/`getHex` method to get the currently selected color:
 
    ```python
    current_color = colorpicker.getRGB()
