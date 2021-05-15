@@ -26,7 +26,7 @@ Simple Color Picker Widget created with PyQt5 to easily get color input from the
    colorpicker = ColorPicker(my_placeholder) # initial color is black
 
    colorpicker = ColorPicker(my_placeholder, rgb=(255,127,0))     # Use RGB
-   colorpicker = ColorPicker(my_placeholder, hsv=(90,80,20))   # Use HSV
+   colorpicker = ColorPicker(my_placeholder, hsv=(90,80,20))      # Use HSV
    colorpicker = ColorPicker(my_placeholder, hex="33ff88")        # Use Hex
    ```
 
