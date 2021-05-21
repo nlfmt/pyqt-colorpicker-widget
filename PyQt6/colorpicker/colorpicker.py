@@ -1,6 +1,8 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
+# Edited by GiorgosXou for Qt6 Support. #
+#                                       #
 # Version 1.3                           #
 # made with Qt Creator & PyQt5          #
 #                                       #
@@ -196,6 +198,5 @@ class ColorPicker(QWidget):
         if g>255: g=255
         if b>255: b=255
         return (r,g,b)
-
 
 # QMouseEvent pos() = posision() https://stackoverflow.com/a/67497313/11465149        
