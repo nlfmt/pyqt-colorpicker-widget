@@ -62,3 +62,5 @@ Simple Color Picker Widget created with PyQt5\\6 to easily get color input from 
   ```
 
 * For an example with a bigger application based on a main class, look at the `example.py` file.
+
+<sup>**⚠️[Why should you consider using Qt6 | Scaling Issues?](https://imgur.com/a/8mGuCiJ)**</sup>
