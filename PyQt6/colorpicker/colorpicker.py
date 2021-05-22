@@ -179,7 +179,7 @@ class ColorPicker(QWidget):
 
     def moveHueSelector(self, event):
         if event.buttons() == Qt.MouseButton.LeftButton:
-            pos = event.position().y() - 7 
+            pos = event.position().y() - 7
             if pos < 0: pos = 0
             if pos > 185: pos = 185
             self.ui.hue_selector.move(QPoint(7,pos))
@@ -197,6 +197,4 @@ class ColorPicker(QWidget):
         if r>255: r=255
         if g>255: g=255
         if b>255: b=255
-        return (r,g,b)
-
-# QMouseEvent pos() = posision() https://stackoverflow.com/a/67497313/11465149        
+        return (r,g,b)      
