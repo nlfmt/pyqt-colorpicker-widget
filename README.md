@@ -52,6 +52,14 @@ Simple Color Picker Widget created with PyQt to easily get color input from the 
    hex = colorpicker.getHex(True)   # use hashtag in string
    ```
 
+* You can also set the current color:
+
+    ```python
+    colorpicker.setHSV((50,20,80))      # 0-100
+    colorpicker.setRGB((221,34,21))     # 0-255
+    colorpicker.setHex("dd3322")        # no hashtag
+    ```
+
 * Use ColorPicker's `colorChanged` signal to update directly when the user changes the color:
 
   ```python
